@@ -267,10 +267,7 @@ namespace FerramAerospaceResearch
             if (loaded)
                 return;
 
-            foreach (AssemblyLoader.LoadedAssembly assembly in AssemblyLoader.loadedAssemblies)
-                if (assembly.assembly.GetName().Name == "AJE")
-                    AJELoaded = true;
-
+            AJELoaded = ModUtils.IsAJEInstalled;
             SetDefaultValuesIfNoValuesLoaded();
 
             loaded = true;

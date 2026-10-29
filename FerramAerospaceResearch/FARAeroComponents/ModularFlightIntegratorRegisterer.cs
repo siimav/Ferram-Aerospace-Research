@@ -107,7 +107,9 @@ namespace FerramAerospaceResearch.FARAeroComponents
         {
             //FIXME Proper model for airbrakes
             if (part.Modules.Contains<ModuleAeroSurface>() ||
-                part.Modules.Contains("MissileLauncher") && part.vessel.rootPart == part)
+                 (ModUtils.IsBDArmoryInstalled &&
+                  part.vessel.rootPart == part &&
+                  part.Modules.Contains("MissileLauncher")))
             {
                 fi.BaseFIUpdateAerodynamics(part);
             }

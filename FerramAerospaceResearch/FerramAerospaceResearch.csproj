@@ -214,6 +214,7 @@
     <Compile Include="Utils\GameDatabaseTextureLoader.cs" />
     <Compile Include="Utils\KSPUtils.cs" />
     <Compile Include="Utils\ModuleControlSurfaceUpgradeFix.cs" />
+    <Compile Include="Utils\ModUtils.cs" />
     <Compile Include="Utils\Serialization.cs" />
   </ItemGroup>
   <ItemGroup>

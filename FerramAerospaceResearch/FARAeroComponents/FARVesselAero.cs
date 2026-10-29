@@ -511,7 +511,8 @@ namespace FerramAerospaceResearch.FARAeroComponents
         public override void OnLoadVessel()
         {
             if (vessel.loaded)
-                if (vessel.rootPart.Modules.Contains("MissileLauncher") && vessel.parts.Count == 1)
+                if (ModUtils.IsBDArmoryInstalled && vessel.rootPart.Modules.Contains("MissileLauncher") &&
+                    vessel.parts.Count == 1)
                 {
                     vessel.rootPart.dragModel = Part.DragModel.CUBE;
                     enabled = false;
