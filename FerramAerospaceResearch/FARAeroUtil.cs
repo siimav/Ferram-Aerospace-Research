@@ -275,11 +275,6 @@ namespace FerramAerospaceResearch
 
             loaded = true;
 
-            string forceUpdatePath = KSPUtil.ApplicationRootPath.Replace("\\", "/") +
-                                     "GameData/FerramAerospaceResearch/FARForceDataUpdate.cfg";
-            if (File.Exists(forceUpdatePath))
-                File.Delete(forceUpdatePath);
-
             //Get Kerbin
             currentBodyData = FARAeroData.AtmosphericConfiguration[1];
         }
