@@ -65,6 +65,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(KSP_DIR_BUILD)\$(KSP_DATA_DIRNAME)\Managed\KSPAssets.dll</HintPath>
     </Reference>
+    <Reference Include="KSPCommunityFixes">
+      <HintPath>$(KSP_DIR_BUILD)\GameData\KSPCommunityFixes\Plugins\KSPCommunityFixes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ModularFlightIntegrator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(KSP_DIR_BUILD)\GameData\ModularFlightIntegrator\ModularFlightIntegrator.dll</HintPath>

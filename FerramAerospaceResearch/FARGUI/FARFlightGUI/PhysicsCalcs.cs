@@ -47,6 +47,7 @@ using System.Collections.Generic;
 using ferram4;
 using FerramAerospaceResearch.FARAeroComponents;
 using KSP.UI.Screens.Flight;
+using KSPCommunityFixes;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -276,28 +277,26 @@ namespace FerramAerospaceResearch.FARGUI.FARFlightGUI
                     vesselInfo.dryMass += p.mass;
                 }
 
-                foreach (PartModule m in p.Modules)
-                    switch (m)
-                    {
-                        case ModuleEngines e:
-                            FuelConsumptionFromEngineModule(e,
-                                                            ref totalThrust,
-                                                            ref totalThrust_Isp,
-                                                            ref fuelConsumptionVol,
-                                                            ref airDemandVol,
-                                                            invDeltaTime);
-                            break;
-                        case ModuleResourceIntake intake:
-                        {
-                            if (intake.intakeEnabled)
-                            {
-                                airAvailableVol += intake.airFlow * intakeAirDensity / invDeltaTime;
-                                vesselInfo.fullMass -= p.Resources[intake.resourceName].amount * intakeAirDensity;
-                            }
+                var engineModules = p.FindModulesImplementingReadOnly<ModuleEngines>();
+                foreach (ModuleEngines e in engineModules)
+                {
+                    FuelConsumptionFromEngineModule(e,
+                                                    ref totalThrust,
+                                                    ref totalThrust_Isp,
+                                                    ref fuelConsumptionVol,
+                                                    ref airDemandVol,
+                                                    invDeltaTime);
+                }
 
-                            break;
-                        }
+                var intakeModules = p.FindModulesImplementingReadOnly<ModuleResourceIntake>();
+                foreach (ModuleResourceIntake intake in intakeModules)
+                {
+                    if (intake.intakeEnabled)
+                    {
+                        airAvailableVol += intake.airFlow * intakeAirDensity / invDeltaTime;
+                        vesselInfo.fullMass -= p.Resources[intake.resourceName].amount * intakeAirDensity;
                     }
+                }
             }
 
             if (totalThrust > 0)

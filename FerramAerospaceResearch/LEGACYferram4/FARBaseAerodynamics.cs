@@ -45,6 +45,7 @@ Copyright 2022, Michael Ferrara, aka Ferram4
 using System.Collections.Generic;
 using FerramAerospaceResearch;
 using FerramAerospaceResearch.FARGUI.FAREditorGUI;
+using KSPCommunityFixes;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -152,9 +153,11 @@ namespace ferram4
             var parts = new List<FARBaseAerodynamics>();
 
             foreach (Part p in EditorLogic.SortedShipList)
-                foreach (PartModule m in p.Modules)
-                    if (m is FARBaseAerodynamics aerodynamics)
-                        parts.Add(aerodynamics);
+            {
+                var modules = p.FindModulesImplementingReadOnly<FARBaseAerodynamics>();
+                foreach (FARBaseAerodynamics m in modules)
+                    parts.Add(m);
+            }
 
             return parts;
         }

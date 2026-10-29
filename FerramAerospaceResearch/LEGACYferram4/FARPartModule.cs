@@ -45,6 +45,7 @@ Copyright 2022, Michael Ferrara, aka Ferram4
 using System;
 using System.Collections.Generic;
 using FerramAerospaceResearch;
+using KSPCommunityFixes;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -85,10 +86,9 @@ namespace ferram4
         public void TriggerPartColliderUpdate()
         {
             //Set up part collider list to easy runtime overhead with memory churning
-            foreach (PartModule m in part.Modules)
+            var modules = part.FindModulesImplementingReadOnly<FARPartModule>();
+            foreach (FARPartModule farModule in modules)
             {
-                if (!(m is FARPartModule farModule))
-                    continue;
                 if (farModule.partColliders == null)
                     continue;
                 partColliders = farModule.partColliders;

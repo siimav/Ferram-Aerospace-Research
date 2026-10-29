@@ -47,6 +47,7 @@ using ferram4;
 using FerramAerospaceResearch.FARGUI.FARFlightGUI;
 using FerramAerospaceResearch.FARPartGeometry;
 using FerramAerospaceResearch.FARThreading;
+using KSPCommunityFixes;
 using UnityEngine;
 
 namespace FerramAerospaceResearch.FARAeroComponents
@@ -145,7 +146,7 @@ namespace FerramAerospaceResearch.FARAeroComponents
                         geoModulesReady++;
                 }
 
-                if (!p.Modules.Contains<KerbalEVA>() && !p.Modules.Contains<FlagSite>())
+                if (!p.HasModuleImplementingFast<KerbalEVA>() && !p.HasModuleImplementingFast<FlagSite>())
                     continue;
                 FARLogger.Info("Handling Stuff for KerbalEVA / Flag");
                 g = (GeometryPartModule)p.AddModule("GeometryPartModule");
@@ -435,7 +436,7 @@ namespace FerramAerospaceResearch.FARAeroComponents
 
             _updateRateLimiter = 0;
             _updateQueued = false;
-            if (vessel.rootPart.Modules.Contains<LaunchClamp>())
+            if (vessel.rootPart.HasModuleImplementingFast<LaunchClamp>())
             {
                 DisableModule();
                 return;
@@ -447,7 +448,7 @@ namespace FerramAerospaceResearch.FARAeroComponents
                 geoModulesReady = 0;
                 foreach (Part p in vessel.Parts)
                 {
-                    GeometryPartModule g = p.Modules.GetModule<GeometryPartModule>();
+                    GeometryPartModule g = p.FindModuleImplementingFast<GeometryPartModule>();
                     if (g is null)
                         continue;
                     _currentGeoModules.Add(g);

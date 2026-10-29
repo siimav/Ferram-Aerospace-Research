@@ -35,7 +35,7 @@ Source available at: [https://github.com/dkavolis/Ferram-Aerospace-Research](htt
 
 Install by merging the GameData folder in the zip with the GameData folder in your KSP install
 
-ModuleManager and ModularFlightIntegrator are REQUIRED for FAR to work properly.  Failing to copy this over will result in strange errors.
+ModuleManager, ModularFlightIntegrator and KSPCommunityFixes (1.36.0 or newer) are REQUIRED for FAR to work properly.  Failing to copy this over will result in strange errors.
 
 ## Legacy wing configs
 

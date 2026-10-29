@@ -48,6 +48,7 @@ using FerramAerospaceResearch;
 using FerramAerospaceResearch.FARAeroComponents;
 using FerramAerospaceResearch.Settings;
 using KSP.Localization;
+using KSPCommunityFixes;
 using TweakScale;
 using UnityEngine;
 
@@ -226,7 +227,7 @@ namespace ferram4
 
         public void NUFAR_CalculateExposedAreaFactor()
         {
-            FARAeroPartModule a = part.Modules.GetModule<FARAeroPartModule>();
+            FARAeroPartModule a = part.FindModuleImplementingFast<FARAeroPartModule>();
 
             NUFAR_areaExposedFactor = Math.Min(a.ProjectedAreas.kN, a.ProjectedAreas.kP);
             NUFAR_totalExposedAreaFactor = Math.Max(a.ProjectedAreas.kN, a.ProjectedAreas.kP);
@@ -244,8 +245,8 @@ namespace ferram4
                 if (p == null)
                     continue;
                 FARWingAerodynamicModel model = this is FARControllableSurface
-                                                    ? p.Modules.GetModule<FARControllableSurface>()
-                                                    : p.Modules.GetModule<FARWingAerodynamicModel>();
+                                                    ? p.FindModuleImplementingFast<FARControllableSurface>()
+                                                    : p.FindModuleImplementingFast<FARWingAerodynamicModel>();
 
                 ++counterpartsCount;
                 sum += model.NUFAR_areaExposedFactor;
@@ -264,8 +265,8 @@ namespace ferram4
                 if (p == null)
                     continue;
                 FARWingAerodynamicModel model = this is FARControllableSurface
-                                                    ? p.Modules.GetModule<FARControllableSurface>()
-                                                    : p.Modules.GetModule<FARWingAerodynamicModel>();
+                                                    ? p.FindModuleImplementingFast<FARControllableSurface>()
+                                                    : p.FindModuleImplementingFast<FARWingAerodynamicModel>();
 
                 model.NUFAR_areaExposedFactor = sum;
                 model.NUFAR_totalExposedAreaFactor = totalExposedSum;
