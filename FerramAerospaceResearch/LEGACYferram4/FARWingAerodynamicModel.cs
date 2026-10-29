@@ -677,9 +677,9 @@ namespace ferram4
                             if (part.parent && !partVessel.packed)
                             {
                                 partVessel.SendMessage("AerodynamicFailureStatus");
-                                string msg = string.Format(Localizer.Format("FARFlightLogAeroFailure"),
-                                                           KSPUtil.PrintTimeStamp(FlightLogger.met),
-                                                           part.partInfo.title);
+                                string msg = Localizer.Format("FARFlightLogAeroFailure",
+                                                              KSPUtil.PrintTimeStamp(FlightLogger.met),
+                                                              part.partInfo.title);
                                 FlightLogger.eventLog.Add(msg);
                                 part.decouple(25);
                                 if (FARDebugValues.aeroFailureExplosions)
