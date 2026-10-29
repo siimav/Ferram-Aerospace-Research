@@ -268,18 +268,10 @@ namespace FerramAerospaceResearch
             if (loaded)
                 return;
 
-            foreach (AssemblyLoader.LoadedAssembly assembly in AssemblyLoader.loadedAssemblies)
-                if (assembly.assembly.GetName().Name == "AJE")
-                    AJELoaded = true;
-
+            AJELoaded = ModUtils.IsAJEInstalled;
             SetDefaultValuesIfNoValuesLoaded();
 
             loaded = true;
-
-            string forceUpdatePath = KSPUtil.ApplicationRootPath.Replace("\\", "/") +
-                                     "GameData/FerramAerospaceResearch/FARForceDataUpdate.cfg";
-            if (File.Exists(forceUpdatePath))
-                File.Delete(forceUpdatePath);
 
             //Get Kerbin
             currentBodyData = FARAeroData.AtmosphericConfiguration[1];

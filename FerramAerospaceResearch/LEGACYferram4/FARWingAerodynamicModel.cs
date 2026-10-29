@@ -582,11 +582,17 @@ namespace ferram4
 
                     double v_scalar = velocity.magnitude;
 
+                    // water's contribution to rho
+                    double waterRho = 0;
                     if (partVessel.mainBody.ocean)
-                        rho = partVessel.mainBody.oceanDensity * 1000 * part.submergedPortion +
-                              part.atmDensity * (1 - part.submergedPortion);
+                    {
+                        waterRho = partVessel.mainBody.oceanDensity * 1000 * part.submergedPortion;
+                        rho = waterRho + part.atmDensity * (1 - part.submergedPortion);
+                    }
                     else
+                    {
                         rho = part.atmDensity;
+                    }
 
                     double machNumber = partVessel.mach;
                     if (rho > 0 && v_scalar > 0.1)
@@ -606,8 +612,7 @@ namespace ferram4
                             Vector3 waterDragForce, waterLiftForce;
                             if (part.submergedPortion < 1)
                             {
-                                float waterFraction = (float)(part.submergedDynamicPressurekPa * part.submergedPortion);
-                                waterFraction /= (float)rho;
+                                float waterFraction = (float)(waterRho / rho);
 
                                 waterDragForce = worldSpaceDragForce * waterFraction; //calculate areaDrag vector
                                 waterLiftForce = worldSpaceLiftForce * waterFraction;
@@ -678,9 +683,9 @@ namespace ferram4
                             if (part.parent && !partVessel.packed)
                             {
                                 partVessel.SendMessage("AerodynamicFailureStatus");
-                                string msg = string.Format(Localizer.Format("FARFlightLogAeroFailure"),
-                                                           KSPUtil.PrintTimeStamp(FlightLogger.met),
-                                                           part.partInfo.title);
+                                string msg = Localizer.Format("FARFlightLogAeroFailure",
+                                                              KSPUtil.PrintTimeStamp(FlightLogger.met),
+                                                              part.partInfo.title);
                                 FlightLogger.eventLog.Add(msg);
                                 part.decouple(25);
                                 if (FARDebugValues.aeroFailureExplosions)
