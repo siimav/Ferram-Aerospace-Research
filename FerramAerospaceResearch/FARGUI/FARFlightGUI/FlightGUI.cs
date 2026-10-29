@@ -87,6 +87,7 @@ namespace FerramAerospaceResearch.FARGUI.FARFlightGUI
         private bool showFlightDataWindow;
         private bool showSettingsWindow;
         private bool showDebugWindow;
+        private bool started;
 
         private GUIDropDown<int> settingsWindow;
         public VesselFlightInfo InfoParameters { get; private set; }
@@ -141,6 +142,7 @@ namespace FerramAerospaceResearch.FARGUI.FARFlightGUI
                 GenerateBlizzyToolbarButton();
 
             activeFlightGUICount++;
+            started = true;
 
             if (vessel == FlightGlobals.ActiveVessel || FlightGlobals.ActiveVessel == null)
                 LoadConfigs();
@@ -181,7 +183,9 @@ namespace FerramAerospaceResearch.FARGUI.FARFlightGUI
             _flightStatusGUI = null;
             settingsWindow = null;
 
-            activeFlightGUICount--;
+            // OnStart only runs once the vessel has been loaded
+            if (started)
+                activeFlightGUICount--;
 
             if (activeFlightGUICount <= 0)
             {
