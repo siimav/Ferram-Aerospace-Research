@@ -80,9 +80,9 @@ namespace FerramAerospaceResearch.FARAeroComponents
                 if (aeroModule is null)
                     continue;
 
-                // make sure drag cube areas are correct based on voxelization
-                if (voxelizationCompleted)
+                if (voxelizationCompleted && !FARSettings.ExposedAreaUsesKSPHack)
                 {
+                    // make sure drag cube areas are correct based on voxelization
                     if (!part.DragCubes.None && aeroModule)
                         for (int j = 0; j < 6; j++)
                             part.DragCubes.AreaOccluded[FARAeroPartModule.ProjectedArea.FaceMap[j]] =
